@@ -1,0 +1,32 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+
+class Solution {
+public:
+	int myAtoi(string str) {
+		int sign = 1, base = 0, i = 0;
+		while (str[i] == ' ') { i++; }
+		if (str[i] == '-' || str[i] == '+') {
+			sign = 1 - 2 * (str[i++] == '-'); 
+		}
+		while (str[i] >= '0' && str[i] <= '9') {
+			if (base >  INT_MAX / 10 || (base == INT_MAX / 10 && str[i] - '0' > 7)) { //  INT_MAX = 2147483647 最后一位是7
+				if (sign == 1) return INT_MAX;
+				else return INT_MIN;
+			}
+			base  = 10 * base + (str[i++] - '0');
+		}
+		return base * sign;
+	}
+};
+
+
+void main() {
+	Solution s;
+	string str = "-2147483649";
+	cout << s.myAtoi(str) << endl;
+	//cout << INT_MAX;
+}
