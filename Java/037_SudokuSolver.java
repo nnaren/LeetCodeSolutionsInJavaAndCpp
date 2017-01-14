@@ -37,4 +37,55 @@ public class Solution {
 	}
 }
 
-//
+//method 2
+public class Solution {
+    public void solveSudoku(char[][] board) {
+        util(board, 0);
+    }
+
+	private boolean util(char[][] board, int pos) {
+		if(pos >= 81)
+			return true;
+		int i = pos / 9;
+		int j = pos % 9;
+		if(board[i][j] != '.')
+			return util(board, pos+1);
+		else {
+			for(char c = '1'; c <= '9'; c++) {
+				if(!isInRow(board, i, c) && !isInCol(board, j, c) && !isInRec(board, i, j, c)) {
+					board[i][j] = c;
+					if(util(board, pos+1))
+						return true;
+					else 
+						board[i][j] = '.';
+				}
+			}
+			return false;
+		}
+	}
+	
+	private boolean isInRow(char[][] board, int i, char c) {
+		for(int k = 0; k < 9; k++) {
+			if(board[i][k] == c) return true;
+		}
+		return false;
+	}
+	
+	private boolean isInCol(char[][] board, int j, char c) {
+		for(int k = 0; k < 9; k++) {
+			if(board[k][j] == c) return true;
+		}
+		return false;
+	}
+	
+	private boolean isInRec(char[][] board, int i, int j, char c) {
+		int bigRow = i / 3; 
+		int bigCol = j / 3;
+		for(int m = 3 * bigRow; m < 3 * (bigRow + 1); m++) {
+			for(int n = 3 * bigCol; n < 3 * (bigCol + 1); n++) {
+				if(board[m][n] == c) return true;
+			}
+		}
+		return false;
+	}
+}
