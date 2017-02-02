@@ -41,3 +41,32 @@ public class Solution {
 		}
 	}
 }
+
+//method 2
+public class Solution {
+	public void rotate(int[][] matrix) {
+		int len = matrix.length;
+		for(int i = 0; i < len; i++) {
+		    for(int j = 0; j < i; j++) {
+		        int temp = matrix[i][j];
+		        matrix[i][j] = matrix[j][i];
+		        matrix[j][i] = temp;
+		    }
+		}
+			
+		for(int i = 0; i < len; i++) {
+		    reverse(matrix[i], 0, len-1);
+		}
+	}
+		
+	private void swap(int[] nums, int i, int j) {
+		int tmp = nums[i];
+		nums[i] = nums[j];
+		nums[j] = tmp;
+	}
+		
+	private void reverse(int[] nums, int from, int to) {
+		while(from < to)
+			swap(nums, from++, to--);
+	}
+}
