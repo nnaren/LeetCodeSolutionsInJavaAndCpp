@@ -1,4 +1,19 @@
 // fast
+// fast
+The number of columns is n, the number of 45° diagonals is 2 * n - 1, the number of 135° diagonals is also 2 * n - 1. 
+When reach [row, col], the column No. is col, the 45° diagonal No. is row + col and the 135° diagonal No. is n - 1 + col - row. 
+We can use three arrays to indicate if the column or the diagonal had a queen before, if not, 
+we can put a queen in this position and continue.
+
+/**    | | |                / / /             \ \ \
+  *    O O O               O O O               O O O
+  *    | | |              / / / /             \ \ \ \
+  *    O O O               O O O               O O O
+  *    | | |              / / / /             \ \ \ \ 
+  *    O O O               O O O               O O O
+  *    | | |              / / /                 \ \ \
+  *   3 columns        5 45° diagonals     5 135° diagonals    (when n is 3)
+  */
 class Solution {
 public:
 	vector<vector<string>> solveNQueens(int n) {
