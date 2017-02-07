@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int totalNQueens(int n) {
+        int res(0);
+        vector<int> flag_col(n, 0);
+        vector<int> flag_45(2*n-1);
+        vector<int> flag_135(2*n-1);
+        totalNQueens(res, 0, n, flag_col, flag_45, flag_135);
+        return res;
+    }
+    
+    void totalNQueens(int& res, int row, int n, vector<int>& flag_col, vector<int>& flag_45, vector<int>& flag_135) {
+        if(row == n) {
+            res += 1;
+            return;
+        }
+        for(int col = 0; col != n; ++col) {
+            if(flag_col[col] == 0 && flag_45[row+col] == 0 && flag_135[n-1+col-row] == 0) {
+                flag_col[col] = flag_45[row + col] = flag_135[n - 1 + col - row] = 1;
+                totalNQueens(res, row + 1, n, flag_col, flag_45, flag_135);
+				flag_col[col] = flag_45[row + col] = flag_135[n - 1 + col - row] = 0;
+            }
+        }
+    }
+};
