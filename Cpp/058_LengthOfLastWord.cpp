@@ -1,6 +1,19 @@
 class Solution {
 public:
     int lengthOfLastWord(string s) {
+        int len = 0, lastLen = 0;
+		for(int i = 0; i < s.length(); i++) {
+			if(s[i] == ' ') len = 0;
+			else lastLen = ++len; 
+		}
+		return lastLen;
+	}
+};
+
+// slow
+class Solution {
+public:
+    int lengthOfLastWord(string s) {
         int len = s.length();
         if(len == 0) return 0;
         int from = 0, to = len-1;
