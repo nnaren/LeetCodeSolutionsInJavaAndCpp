@@ -1,5 +1,17 @@
 public class Solution {
     public int lengthOfLastWord(String s) {
+		int len = 0, lastLen = 0;
+		for(int i = 0; i < s.length(); i++) {
+			if(s.charAt(i) == ' ') len = 0;
+			else lastLen = ++len; 
+		}
+		return lastLen;
+    }
+}
+
+// slow
+public class Solution {
+    public int lengthOfLastWord(String s) {
 		int len = s.length();
 		if(len == 0) return 0;
 		int from = 0, to = len-1;
