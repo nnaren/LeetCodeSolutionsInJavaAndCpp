@@ -23,3 +23,33 @@ public:
 		circleIn(res, row_from+1, row_to-1, col_from+1, col_to-1, start);
 	} 
 };
+
+// method 2
+class Solution {
+public:
+    vector<vector<int>> generateMatrix(int n) {
+        vector<vector<int>> res(n, vector<int>(n, 0));
+	    int left = 0,top = 0;
+	    int right = n -1,down = n - 1;
+	    int count = 1;
+    	while (left <= right) {
+		    for (int j = left; j <= right; j ++) {
+			    res[top][j] = count++;
+		    }
+		    top ++;
+		    for (int i = top; i <= down; i ++) {
+			    res[i][right] = count ++;
+		    }
+		    right --;
+		    for (int j = right; j >= left; j --) {
+			    res[down][j] = count ++;
+		    }
+		    down --;
+		    for (int i = down; i >= top; i --) {
+		    	res[i][left] = count ++;
+		    }
+		    left ++;
+	    }
+	    return res;
+    }
+};
