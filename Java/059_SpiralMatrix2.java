@@ -22,3 +22,32 @@ public class Solution {
 		circleIn(res, row_from+1, row_to-1, col_from+1, col_to-1, start);
 	}
 }
+
+// method 2
+public class Solution {
+	public static int[][] generateMatrix(int n) {
+		int[][] ret = new int[n][n];
+		int left = 0, top = 0;
+		int right = n - 1, down = n - 1;
+		int count = 1;
+		while (left <= right) {
+			for (int j = left; j <= right; j++) {
+				ret[top][j] = count++;
+			}
+			top++;
+			for (int i = top; i <= down; i++) {
+				ret[i][right] = count++;
+			}
+			right--;
+			for (int j = right; j >= left; j--) {
+				ret[down][j] = count++;
+			}
+			down--;
+			for (int i = down; i >= top; i--) {
+				ret[i][left] = count++;
+			}
+			left++;
+		}
+		return ret;
+	}
+}
