@@ -1,4 +1,14 @@
 // Edition 1
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        if(head == nullptr || head->next == nullptr) return head;
+        head->next = deleteDuplicates(head->next);
+        return head->val == head->next->val ? head->next : head;
+    }
+};
+
+// Edition 2
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -25,7 +35,7 @@ public:
 };
 
 
-// Edition 2
+// Edition 3
 /**
  * Definition for singly-linked list.
  * struct ListNode {
