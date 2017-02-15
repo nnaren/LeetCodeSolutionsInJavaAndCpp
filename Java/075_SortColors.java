@@ -1,3 +1,64 @@
+The lables of colors are used to mark the end of different colors.
+
+For example:
+
+nums: [0 1 2 1 2 0 2 2 1]
+ two   "0" --> r is 2 --> [0, 2)
+ three "1" --> w is 5 --> [2, 5)
+ four  "2" --> b is 9 --> [5, 9)
+We may just scan the nums to get r, w and b. And then iterate the array again to assign nums[0..1] = 0, nums[2..4] = 1, nums[5..8] = 2.
+
+Here comes the amazing part of this idea! @flying_birdman didn't iterate twice but assign the array in the first pass!
+It's like painting the array: the later color will cover the previous color.
+
+For example:
+
+------- Before meeting nums[3] -------
+index:  0 1 2 3 4 5 6 7 8
+nums:   0 1 2 1 2 0 2 2 1
+lables:   r w b
+
+paint:  2 2 2 
+        1 1   
+        0
+       
+appear: 0 1 2 
+
+------- After dealing with nums[3] -------
+index:  0 1 2 3 4 5 6 7 8
+nums:   0 1 2 1 2 0 2 2 1
+lables:   r   w b
+
+paint:  2 2 2 2
+        1 1 1  
+        0
+       
+appear: 0 1 1 2
+
+------- After finish iteration -------
+index:  0 1 2 3 4 5 6 7 8
+nums:   0 1 2 1 2 0 2 2 1
+lables:     r     w       b
+
+paint:  2 2 2 2 2 2 2 2 2
+        1 1 1 1 1  
+        0 0 
+       
+appear: 0 0 1 1 1 2 2 2 2
+// best answer
+public class Solution {
+    public void sortColors(int[] nums) {
+        int r = 0, w = 0, b = 0;
+        for (int num : nums) {
+            if (num == 0) {nums[b++] = 2; nums[w++] = 1; nums[r++] = 0;}
+            else if (num == 1) {nums[b++] = 2; nums[w++] = 1;}
+            else if (num == 2) b++;
+        }
+    }
+} 
+                           
+                           
+
 // insertSort
 public class Solution {
     public void sortColors(int[] nums) {
