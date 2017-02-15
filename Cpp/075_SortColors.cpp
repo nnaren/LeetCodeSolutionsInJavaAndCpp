@@ -1,3 +1,23 @@
+// insertSort
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        int len = nums.size();
+        if (len <= 1) return ;
+        insertSort(nums, len);
+    }
+    
+    void insertSort(vector<int>& nums, int len) {
+    	for (int i = 1; i < len; i++) {
+    	    int key = nums[i];
+    	    int j = i;
+    	    for (; j > 0 && nums[j-1] > key; --j)
+    	        nums[j] = nums[j-1];
+    	    nums[j] = key;
+    	}
+    }
+};
+
 // quickSort
 class Solution {
 public:
