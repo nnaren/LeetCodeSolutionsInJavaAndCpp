@@ -1,4 +1,13 @@
 // Edition 1
+public class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+        if(head == null || head.next == null)return head;
+        head.next = deleteDuplicates(head.next);
+        return head.val == head.next.val ? head.next : head;
+    }
+}
+
+// Edition 2
 /**
  * Definition for singly-linked list.
  * public class ListNode {
@@ -23,7 +32,7 @@ public class Solution {
     }
 }
 
-// Edition 2
+// Edition 3
 /**
  * Definition for singly-linked list.
  * public class ListNode {
