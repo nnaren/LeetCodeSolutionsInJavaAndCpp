@@ -81,3 +81,27 @@ int lengthOfLongestSubstring(string s) {
 
 // CODE
 
+class Solution {
+public:
+    string minWindow(string s, string t) {
+        vector<int> map(128, 0);
+        for (char c : t) map[c]++;
+        int begin = 0, counter = t.size(), end = 0, head = 0, d = INT_MAX;
+        while (end < s.size()) {
+            if (map[s[end]] > 0) counter--;
+            map[s[end]]--;
+            end++;
+            
+            while (counter == 0) {
+                if (end - begin < d) {
+                    head = begin;
+                    d = end - head;
+                }
+                if (map[s[begin]] == 0) counter++;
+                map[s[begin]]++;
+                begin++;
+            }
+        }
+        return d == INT_MAX ? "" : s.substr(head, d);
+    }
+};
