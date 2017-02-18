@@ -1,3 +1,31 @@
+// fast
+class Solution {
+public:
+	bool exist(vector<vector<char> > &board, string word) {
+        for (int i = 0; i < board.size(); i++) {
+            for (int j = 0; j < board[i].size(); j++) {
+                if(exist(board, word, i, j, 0)) return true;
+            }
+        }
+        return false;
+    }
+private:
+    bool exist(vector<vector<char> > &board, string &word, int x, int y, int start) {
+        if(start >= word.size()) return true;
+        if(x < 0 || x >= board.size() || y < 0 || y >= board[0].size()) return false;
+        if (board[x][y] == word[start++]) {
+            char c = board[x][y];
+            board[x][y] = '#';
+            bool res = exist(board, word, x+1, y, start) || exist(board, word,  x-1, y, start) ||
+            exist(board, word, x, y+1, start) || exist(board, word, x, y-1, start);
+            board[x][y] = c;
+            return res;
+        }
+        return false;
+    }
+};
+
+// edition 2
 class Solution {
 public:
 	bool exist(vector<vector<char> > &board, string word) {
