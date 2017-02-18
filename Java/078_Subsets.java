@@ -29,8 +29,8 @@ public class Solution {
 }
 
 // backTrack
-public List<List<Integer>> subsets(int[] nums) {
-		Arrays.sort(nums);
+public class Solution {
+    public List<List<Integer>> subsets(int[] nums) {
 		List<List<Integer>> subs = new ArrayList<>();
 		List<Integer> sub = new ArrayList<>();	
 		genSubsets(nums, 0, subs, sub);
@@ -47,3 +47,4 @@ public List<List<Integer>> subsets(int[] nums) {
 			sub.remove(sub.size()-1);
 		}
 	}
+}
