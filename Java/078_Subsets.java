@@ -1,3 +1,19 @@
+// bitMark
+public class Solution {
+	public List<List<Integer>> subsets(int[] nums) {
+		int numOfSubset = 1 << nums.length;
+		List<List<Integer>> res = new ArrayList<>();
+		for (int i = 0; i < numOfSubset; i++)
+			res.add(new ArrayList<>());
+		
+		for (int i = 0; i < nums.length; ++i) 
+			for (int j = 0; j < numOfSubset; ++j)
+				if(((j >> i) & 1) != 0)
+					res.get(j).add(nums[i]);
+		return res;	
+	}
+}
+
 // Iterative
 This problem can also be solved iteratively. Take [1, 2, 3] in the problem statement as an example.
 The process of generating all the subsets is like:
