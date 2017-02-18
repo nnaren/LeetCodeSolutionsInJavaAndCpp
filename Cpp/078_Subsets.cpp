@@ -1,3 +1,18 @@
+// bitMark
+class Solution {
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        int numOfSubsets = 1 << nums.size();
+        vector<vector<int>> res(numOfSubsets, vector<int>());
+        
+        for (int i = 0; i < nums.size(); ++i) 
+            for (int j = 0; j < numOfSubsets; ++j)
+                if ((j >> i) & 1)
+                    res[j].push_back(nums[i]);
+        return res;
+    }
+};
+
 // Iterative
 This problem can also be solved iteratively. Take [1, 2, 3] in the problem statement as an example.
 The process of generating all the subsets is like:
