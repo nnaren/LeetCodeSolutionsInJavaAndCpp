@@ -1,3 +1,26 @@
+// slow easy
+class Solution {
+public:
+    int largestRectangleArea(vector<int>& height) {
+        int len = height.size();
+        stack<int> s;
+        int maxArea = 0;
+        for(int i = 0; i <= len; i++){
+            int h = (i == len ? 0 : height[i]);
+            if(s.empty() || h >= height[s.top()]){
+                s.push(i);
+            }else{
+                int tp = s.top();
+                s.pop();
+                maxArea = max(maxArea, height[tp] * (s.empty() ? i : i - 1 - s.top()));
+                i--;
+            }
+        }
+        return maxArea;
+    }
+};
+
+// fast hard
 class Solution {
 public:
     int largestRectangleArea(vector<int>& height) {
