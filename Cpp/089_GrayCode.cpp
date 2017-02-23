@@ -7,3 +7,20 @@ public:
         return result;
     }
 };
+
+
+// recursive
+class Solution {
+public:
+    vector<int> grayCode(int n) {         
+        vector<int> res(1, 0);
+        for (int i = 0; i < n; i++) {
+            int curSize = res.size();
+            while (curSize--) {
+                int numTemp = res[curSize] + (1 << i);
+                res.push_back(numTemp);
+            }
+        }
+        return res;
+    }
+};
