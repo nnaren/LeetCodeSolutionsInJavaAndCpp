@@ -15,8 +15,7 @@ public class Solution {
 	    for (int i = 0; i < n; i++) {
 	    	int curCount = res.size();
 	    	while (curCount-- > 0) {
-	    		int curNum = res.get(curCount);
-	    		curNum += (1 << i);
+	    		int curNum = res.get(curCount) | (1 << i);
 	    		res.add(curNum);
 	    	}
 	    }
