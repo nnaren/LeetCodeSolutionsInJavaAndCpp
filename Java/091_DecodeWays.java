@@ -1,6 +1,38 @@
 public class Solution {
     public int numDecodings(String s) {
     	int len = s.length();
+    	if (len == 0 || s.charAt(0) == '0')
+    		return 0;
+    	if (len == 1) return 1;
+    	int left = 1, right = 1, num = 0;
+    	for (int i = 1; i < len; i++) {
+    		num = 0;
+    		if (!isValid(s.charAt(i)) && !isValid(s.charAt(i-1), s.charAt(i)))
+    			return 0;
+    		if (isValid(s.charAt(i))) 
+    			num = right;
+    		if (isValid(s.charAt(i-1), s.charAt(i)))
+    			num += left;
+    		left = right;
+    		right = num;
+    	}
+    	return num;
+    }
+    
+    boolean isValid(char a, char b) {
+    	return a == '1' || (a == '2' && b <= '6');
+    }
+    
+    boolean isValid(char a) {
+    	return a != '0';
+    }
+}
+
+
+// method 2
+public class Solution {
+    public int numDecodings(String s) {
+    	int len = s.length();
     	if(len == 0 || s.charAt(0) == '0')
     		return 0;
     	int[] dp = new int[len+1];
