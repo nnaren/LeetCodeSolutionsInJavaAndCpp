@@ -1,30 +1,34 @@
 // Iterative
 /**
  * Definition for a binary tree node.
- * public class TreeNode {
+ * struct TreeNode {
  *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode(int x) { val = x; }
- * }
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
  */
-public class Solution {
-    public List<Integer> inorderTraversal(TreeNode root) {
-        List<Integer> res = new ArrayList<>();
-        Stack<TreeNode> s = new Stack<>();
-        TreeNode cur = root;
-        while (cur != null || !s.empty()) {
-            while (cur != null) {
-                s.add(cur);
-                cur = cur.left;
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> res;
+        stack<TreeNode*> s;
+        TreeNode* cur = root;
+        
+        while (cur != nullptr || !s.empty()) {
+            while (cur != nullptr) {
+                s.push(cur);
+                cur = cur->left;
             }
-            cur = s.pop();
-            res.add(cur.val);
-            cur = cur.right;
+            cur = s.top();
+            s.pop();
+            res.push_back(cur->val);
+            cur = cur->right;
         }
         return res;
     }
-}
+};
+
 
 // Recursion
 /**
