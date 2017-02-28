@@ -1,3 +1,41 @@
+// morris algorithm
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        TreeNode* cur = root;
+        vector<int> res;
+        while (cur != nullptr) {
+            if (cur->left != nullptr) {
+                TreeNode* predecessor = cur->left;
+                while (predecessor->right != nullptr && predecessor->right != cur)
+                    predecessor = predecessor->right;
+                if (predecessor->right == nullptr) {
+                    predecessor->right = cur;
+                    cur = cur->left;
+                } else {
+                    predecessor->right = nullptr;
+                    res.push_back(cur->val);
+                    cur = cur->right;
+                }
+            } else {
+                res.push_back(cur->val);
+                cur = cur->right;
+            }
+        }
+        return res;
+    }
+};
+
+
 // Iterative
 /**
  * Definition for a binary tree node.
