@@ -1,4 +1,3 @@
-// divide and conquer
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -12,26 +11,29 @@ public class Solution {
     public List<TreeNode> generateTrees(int n) {
         List<TreeNode> res = new ArrayList<>();
         if (n == 0) return res;
-        return genTreeList(1,n);
+        return generateTrees(1, n);
     }
-    
-    private List<TreeNode> genTreeList (int start, int end) {
-        List<TreeNode> list = new ArrayList<TreeNode>(); 
+
+    public List<TreeNode> generateTrees(int start, int end) {
+        List<TreeNode> trees = new ArrayList<TreeNode>();
         if (start > end) {
-            list.add(null);
+            trees.add(null);
+            return trees;
         }
-        for(int idx = start; idx <= end; idx++) {
-            List<TreeNode> leftList = genTreeList(start, idx - 1);
-            List<TreeNode> rightList = genTreeList(idx + 1, end);
-            for (TreeNode left : leftList) {
-                for(TreeNode right: rightList) {
-                    TreeNode root = new TreeNode(idx);
-                    root.left = left;
-                    root.right = right;
-                    list.add(root);
+
+        for (int rootValue = start; rootValue <= end; rootValue++) {
+            List<TreeNode> leftSubTrees = generateTrees(start, rootValue - 1);
+            List<TreeNode> rightSubTrees = generateTrees(rootValue + 1, end);
+
+            for (TreeNode leftSubTree : leftSubTrees) {
+                for (TreeNode rightSubTree : rightSubTrees) {
+                    TreeNode root = new TreeNode(rootValue);
+                    root.left = leftSubTree;
+                    root.right = rightSubTree;
+                    trees.add(root);
                 }
             }
         }
-        return list;
+        return trees;
     }
 }
