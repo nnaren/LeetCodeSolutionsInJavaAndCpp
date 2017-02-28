@@ -12,25 +12,29 @@ public:
     vector<TreeNode *> generateTrees(int n) {
         vector<TreeNode *> res;
         if (n == 0) return res;
-        return genTreeList(1, n);
+        return generateTrees(1, n);
     }
     
-    vector<TreeNode *> genTreeList (int start, int end) {
-        vector<TreeNode *> res;
-        if (start > end)
-            res.push_back(nullptr);
-        for (int i = start; i <= end; ++i) {
-            vector<TreeNode *> leftList = genTreeList(start, i-1);
-            vector<TreeNode *> rightList = genTreeList(i+1, end);
-            for (TreeNode *l : leftList) {
-                for(TreeNode *r : rightList) {
-                    TreeNode *root = new TreeNode(i);
-                    root->left = l;
-                    root->right = r;
-                    res.push_back(root);
-                } 
+    vector<TreeNode *> generateTrees(int start, int end) {
+        vector<TreeNode *> trees;
+        if (start > end) {
+            trees.push_back(NULL);
+            return trees;
+        }
+
+        for (int rootValue = start; rootValue <= end; rootValue++) {
+            vector<TreeNode *> leftSubTrees = generateTrees(start, rootValue - 1);
+            vector<TreeNode *> rightSubTrees = generateTrees(rootValue + 1, end);
+
+            for (TreeNode *leftSubTree : leftSubTrees) {
+                for (TreeNode *rightSubTree : rightSubTrees) {
+                    TreeNode *root = new TreeNode(rootValue);
+                    root->left = leftSubTree;
+                    root->right = rightSubTree;
+                    trees.push_back(root);
+                }
             }
         }
-        return res;
+        return trees;
     }
 };
