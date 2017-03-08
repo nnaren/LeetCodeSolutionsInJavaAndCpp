@@ -10,7 +10,27 @@ public class Solution {
 }
 
 //method 2
+public class Solution {
+    public int maxSubArray(int[] nums) {
+        if (nums == null || nums.length <= 0)
+            return 0;
+        
+        int curSum = 0, greatestSum = Integer.MIN_VALUE;
+        for (int i = 0; i < nums.length; ++i) {
+            if (curSum <= 0)
+                curSum = nums[i];
+            else 
+                curSum += nums[i];
+            
+            if (curSum > greatestSum)
+                greatestSum = curSum;
+        }
+        return greatestSum;
+    }
+}
 
+
+// method 3
 public class Solution {
 
     public int maxSubArray(int[] nums) {
