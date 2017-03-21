@@ -80,24 +80,6 @@ public class Solution {
 // method 3
 //O(N) best case / O(N^2) worst case running time + O(1) memory
 public class Solution {
-    public int findKthLargest(int[] nums, int k) {
-        if (nums == null || k > nums.length || nums.length <= 0 || k <= 0)
-            return 0;
-
-	    int start = 0, end = nums.length - 1;
-	    int index = partition(nums, start, end);
-
-    	while (index != nums.length - k) {
-    		if (index > nums.length - k)
-    			end = index - 1;
-    		else
-    			start = index + 1;
-    		index = partition(nums, start, end);
-    	}
-    	
-        return nums[index];
-    }
-    
     private int partition(int[] nums, int lo, int hi) {
         int key = nums[hi];
         int i = lo - 1;
@@ -110,10 +92,26 @@ public class Solution {
         swap(nums, i + 1, hi);
         return i + 1;
     }
+    
+	private void swap(int[] nums, int i, int j) {
+		int temp = nums[i];
+		nums[i] = nums[j];
+		nums[j] = temp;
+	}
 
-    private void swap(int[] nums, int i, int j) {
-        int temp = nums[i];
-        nums[i] = nums[j];
-        nums[j] = temp;
-    }
+	public int findKthLargest(int[] nums, int k) {
+		if (nums == null || nums.length < k || k <= 0)
+			return -1;
+		
+		int lo = 0, hi = nums.length - 1;
+		
+		while (true) {
+			int index = partition(nums, lo, hi);
+			if (index == nums.length - k)
+				return nums[index];
+			else if (index < nums.length - k)
+				lo = index + 1;
+			else hi = index - 1;
+		}
+	}
 }
