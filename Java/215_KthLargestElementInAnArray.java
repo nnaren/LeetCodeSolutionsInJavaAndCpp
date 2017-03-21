@@ -1,18 +1,21 @@
 // method 2
 //O(N lg K) running time + O(K) memory
 public class Solution {
+  
     public int findKthLargest(int[] nums, int k) {
-    
-        final PriorityQueue<Integer> pq = new PriorityQueue<>();
-        for(int val : nums) {
-            pq.offer(val);
-    
-            if(pq.size() > k) {
-                pq.poll();
-            }
+
+        if (nums == null || nums.length < k || k <= 0)
+            return -1;
+        PriorityQueue<Integer> minQueue = new PriorityQueue<Integer>();
+        for (int val : nums) {
+            minQueue.offer(val);
+            
+            if (minQueue.size() > k)
+            	minQueue.poll();
         }
-        return pq.peek();
+        return minQueue.peek();
     }
+
 }
 
 // method 3
